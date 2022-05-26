@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- @if ($errors->any())
+        <div class="container alert alert-danger mt-3">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+@endif --}}
+
         <!-- Main Content-->
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -18,8 +28,11 @@
                               <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{ route('categories.add') }}">
                                @csrf
                                 <div class="form-group mb-4">
-                                  <label for="exampleInputEmail1">Name</label>
-                                  <input type="text" id="name" name="name" class="form-control" required="">
+                                    @error('name')
+                                        <div class="error alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" required="" value="{{ old('name') }}">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                               </form>

@@ -28,12 +28,20 @@ class CategoryController extends Controller
         return view('category.add');
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
+        $data = $request->validated();
+
+        $categoryName = $data['name'];
+
         $category = new Category;
-        $category->name = $request->name;
+
+        $category->name = $categoryName;
         $category->save();
-        return redirect()->route('categories.index')->with('status', 'Added new category');
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategoria została dodana do bazy danych.');
     }
 
     /**
