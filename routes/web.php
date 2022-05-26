@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('categories', 'App\Http\Controllers\CategoryController@index')->name('categories.index');
     Route::get('categories/form', 'App\Http\Controllers\CategoryController@create')->name('categories.form');
     Route::post('categories', 'App\Http\Controllers\CategoryController@store')->name('categories.add');
-    Route::delete('categories', 'App\Http\Controllers\CategoryController@remove')->name('categories.remove');
+    Route::delete('categories', 'App\Http\Controllers\CategoryController@destroy')->name('categories.remove');
 
 });
 

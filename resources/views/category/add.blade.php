@@ -34,14 +34,14 @@
                                     <label for="exampleInputEmail1">Name</label>
                                     <input type="text" id="name" name="name" class="form-control" required="" value="{{ old('name') }}">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Zapisz</button>
                               </form>
                             </div>
                         </div>
                     <!-- Divider-->
                     <hr class="my-4" />
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{{ route('categories.index') }}">All categories →</a></div>
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{{ route('categories.index') }}">Powrót do listy kategorii →</a></div>
                 </div>
             </div>
         </div>
