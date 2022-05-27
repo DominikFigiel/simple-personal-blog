@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+        <div class="container alert alert-danger mt-3">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+@endif
+
         <!-- Main Content-->
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -8,49 +18,28 @@
                     <!-- Post preview-->
                     <div class="post-preview">
                         <a href="post.html">
-                            <h2 class="post-title">Categories:</h2>
+                            <h2 class="post-title">Categories</h2>
                         </a>
-
-                        <div class="table-responsive mt-3">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nazwa</th>
-                                    <th>Opcje</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nazwa</th>
-                                    <th>Opcje</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-                                    @include('shared.messages')
-                                    @error('id')
-                                        <div class="error alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                    @foreach($categories ?? [] as $category)
-                                        <tr>
-                                            <td>{{ $category->id }}</td>
-                                            <td>{{ $category->name }}</td>
-                                            <td>
-                                                <a class="btn btn-secondary mb-2" href="{{ route('categories.edit', ['categoryId' => $category->id]) }}">Edytuj</a>
-                                                <a class="btn btn-danger mb-2" href="{{ route('categories.remove', ['categoryId' => $category->id]) }}">Usuń</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                        <div class="card">
+                            <div class="card-header text-center font-weight-bold">
+                                Edit category:
+                            </div>
+                            <div class="card-body">
+                              <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{ route('categories.update') }}">
+                               @csrf
+                                <div class="form-group mb-4">
+                                    <input type="text" id="id" name="id" class="form-control" hidden required="" value="{{ $category->id }}">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" required="" value="{{ $category->name }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Zapisz</button>
+                              </form>
+                            </div>
                         </div>
-
-                    </div>
                     <!-- Divider-->
                     <hr class="my-4" />
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{{ route('categories.form') }}">Dodaj kategorię</a></div>
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{{ route('categories.index') }}">Powrót do listy kategorii →</a></div>
                 </div>
             </div>
         </div>

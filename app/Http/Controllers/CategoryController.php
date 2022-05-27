@@ -45,13 +45,40 @@ class CategoryController extends Controller
             ->with('success', 'Kategoria została dodana do bazy danych.');
     }
 
-    public function destroy(DestroyCategoryRequest $request, Category $category)
+    public function edit(int $categoryId)
     {
-        $data = $request->validated();
+        $category = Category::find($categoryId);
 
-        $id = (int) $data['id'];
+        if($category)
+        {
+            return view('category.edit', [
+                'category' => $category
+            ]);
+        }
 
-        $category = Category::find($id);
+        return redirect()
+            ->route('categories.index');
+    }
+
+    public function update(UpdateCategoryRequest $request)
+    {
+        $category = Category::find($request['id']);
+
+        if($category)
+        {
+            $category->name = $request['name'];
+
+            $category->save();
+
+            return redirect()
+            ->route('categories.index')
+            ->with('success', 'Nazwa kategorii została zmieniona.');
+        }
+    }
+
+    public function destroy(int $categoryId)
+    {
+        $category = Category::find($categoryId);
 
         if($category)
         {
@@ -59,7 +86,7 @@ class CategoryController extends Controller
 
             return redirect()
             ->route('categories.index')
-            ->with('success', 'Kategoria została usunięta');
+            ->with('error', 'Kategoria została usunięta');
         }
         else
         {
@@ -76,29 +103,6 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
     {
         //
     }

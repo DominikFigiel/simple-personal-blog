@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -11,20 +12,19 @@ class UpdateCategoryRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
-            //
+            'name' => "required|max:100|unique:categories,name,{$this->id}"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Pole nazwa jest wymagane.',
+            'name.unique' => 'Kategoria o takiej nazwie już istnieje.',
+            'name.max' => 'Przekroczono limit znaków (:max)',
         ];
     }
 }
