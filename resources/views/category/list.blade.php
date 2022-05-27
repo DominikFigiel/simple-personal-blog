@@ -44,6 +44,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-left">{{ $categories->links() }}</div>
                         </div>
 
                     </div>
