@@ -27,6 +27,14 @@ Route::middleware(['auth'])->group(function() {
     Route::get('categories/remove/{categoryId}', 'App\Http\Controllers\CategoryController@destroy')->name('categories.remove');
     Route::get('categories/edit/{categoryId}', 'App\Http\Controllers\CategoryController@edit')->name('categories.edit');
     Route::post('categories/update', 'App\Http\Controllers\CategoryController@update')->name('categories.update');
+
+    // list all tags, add new tag, delete tag
+    Route::get('tags', 'App\Http\Controllers\TagController@index')->name('tags.index');
+    Route::get('tags/form', 'App\Http\Controllers\TagController@create')->name('tags.form');
+    Route::post('tags', 'App\Http\Controllers\TagController@store')->name('tags.add');
+    Route::get('tags/remove/{tagId}', 'App\Http\Controllers\TagController@destroy')->name('tags.remove');
+    Route::get('tags/edit/{tagId}', 'App\Http\Controllers\TagController@edit')->name('tags.edit');
+    Route::post('tags/update', 'App\Http\Controllers\TagController@update')->name('tags.update');
 });
 
 Auth::routes();
