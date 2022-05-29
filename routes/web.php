@@ -44,7 +44,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('posts/edit/{postId}', 'App\Http\Controllers\PostController@edit')->name('posts.edit');
     Route::post('posts/update', 'App\Http\Controllers\PostController@update')->name('posts.update');
 
-    Route::get('post/{slug}', 'App\Http\Controllers\PostController@show')->name('posts.show');
+    Route::get('blog', 'App\Http\Controllers\PostController@postIndex')->name('post.list');
+    Route::get('blog/{slug}', 'App\Http\Controllers\PostController@show')->name('post.show');
 });
 
 Auth::routes();

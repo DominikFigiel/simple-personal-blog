@@ -100,6 +100,26 @@ class PostController extends Controller
         }
     }
 
+    public function show(string $slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+
+        if($post)
+        {
+            return view('blog.show', compact('post'));
+        }
+
+        return redirect()
+            ->route('posts.index');
+    }
+
+    public function postIndex()
+    {
+        $posts = Post::paginate(5);
+
+        return view('blog.index', compact('posts'));
+    }
+
     public function convertTextToSlug(string $text): string
     {
         return Str::slug($text, '-');
