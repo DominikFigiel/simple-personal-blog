@@ -35,6 +35,16 @@ Route::middleware(['auth'])->group(function() {
     Route::get('tags/remove/{tagId}', 'App\Http\Controllers\TagController@destroy')->name('tags.remove');
     Route::get('tags/edit/{tagId}', 'App\Http\Controllers\TagController@edit')->name('tags.edit');
     Route::post('tags/update', 'App\Http\Controllers\TagController@update')->name('tags.update');
+
+    // list all posts, add new post, delete post
+    Route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');
+    Route::get('posts/form', 'App\Http\Controllers\PostController@create')->name('posts.form');
+    Route::post('posts', 'App\Http\Controllers\PostController@store')->name('posts.add');
+    Route::get('posts/remove/{postId}', 'App\Http\Controllers\PostController@destroy')->name('posts.remove');
+    Route::get('posts/edit/{postId}', 'App\Http\Controllers\PostController@edit')->name('posts.edit');
+    Route::post('posts/update', 'App\Http\Controllers\PostController@update')->name('posts.update');
+
+    Route::get('post/{slug}', 'App\Http\Controllers\PostController@show')->name('posts.show');
 });
 
 Auth::routes();
