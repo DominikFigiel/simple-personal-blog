@@ -10,7 +10,8 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title' => "required|max:100",
-            'slug' => "required|max:100|unique:posts,slug,{$this->id}"
+            'slug' => "required|max:100|unique:posts,slug,{$this->id}",
+            'category_id' => 'required'
         ];
     }
 
@@ -19,7 +20,8 @@ class UpdatePostRequest extends FormRequest
         return [
             'title.required' => 'Pole nazwa jest wymagane.',
             'title.max' => 'Przekroczono limit znaków (:max)',
-            'slug.unique' => 'Taki slug już istnieje'
+            'slug.unique' => 'Taki slug już istnieje',
+            'category_id.required' => 'Wybierz kategorię wpisu'
         ];
     }
 }

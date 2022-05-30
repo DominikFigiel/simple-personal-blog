@@ -52,7 +52,22 @@
                                     @enderror
                                     <label for="body">Body</label>
                                     <input type="text" id="body" name="body" class="form-control" required="" value="{{ old('body') }}">
+
                                 </div>
+
+                                <div class="form-group mb-3">
+                                    @error('category_id')
+                                        <div class="error alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                    <strong>Kategoria:</strong>
+                                    <select name="category_id" class="form-control custom-select">
+                                      <option value="">Select category</option>
+                                      @foreach($categories as $cat)
+                                        <option value="{{ $cat->id }}" @if(old('category_id') == $cat->id) selected @endif>{{ $cat->name }}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary">Zapisz</button>
 
                               </form>

@@ -13,6 +13,7 @@ class StorePostRequest extends FormRequest
             'description' => 'max:250',
             'slug' => 'required|max:250|unique:posts',
             'body' => 'max:250',
+            'category_id' => 'required'
         ];
     }
 
@@ -22,6 +23,7 @@ class StorePostRequest extends FormRequest
             'title.required' => 'Pole nazwa jest wymagane.',
             'title.max' => 'Przekroczono limit znaków (:max)',
             'slug.unique' => 'Taki slug już istnieje',
+            'category_id.required' => 'Wybierz kategorię wpisu'
         ];
     }
 }

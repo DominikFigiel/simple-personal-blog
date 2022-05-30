@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\DestroyPostRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -22,24 +23,31 @@ class PostController extends Controller
 
     public function create(): View
     {
-        return view('post.add');
+        $categories = Category::all();
+
+        return view('post.add', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
 
+
         $postTitle = $data['title'];
         $postSlug = $this->convertTextToSlug($data['slug']);
         $postDescription = $data['description'];
         $postBody = $data['body'];
+        $postCategoryId = $data['category_id'];
 
-        $post = new Post;
-
-        $post->title = $postTitle;
-        $post->slug = $postSlug;
-        $post->description = $postDescription;
-        $post->body = $postBody;
+        $post = new Post([
+            'title' => $postTitle,
+            'slug' => $postSlug,
+            'description' => $postDescription,
+            'body' => $postBody,
+            'category_id' => $postCategoryId,
+        ]);
 
         $post->save();
 
@@ -50,11 +58,13 @@ class PostController extends Controller
 
     public function edit(int $postId)
     {
+        $categories = Category::all();
         $post = Post::find($postId);
+
 
         if($post)
         {
-            return view('post.edit', compact('post'));
+            return view('post.edit', compact('post', 'categories'));
         }
 
         return redirect()
@@ -70,7 +80,8 @@ class PostController extends Controller
             $post->title = $request['title'];
             $post->slug = $this->convertTextToSlug($request['slug']);
             $post->description = $request['description'];;
-            $post->body = $request['body'];;
+            $post->body = $request['body'];
+            $post->category_id = $request['category_id'];
 
             $post->save();
 

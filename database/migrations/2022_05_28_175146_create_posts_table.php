@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('description', 500)->nullable();
             $table->string('slug', 255)->unique()->nullable();
             $table->text('body')->nullable();
+            $table->integer('category_id');
         });
     }
 
