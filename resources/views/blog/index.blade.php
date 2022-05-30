@@ -15,7 +15,10 @@
                         <p class="post-meta">
                             Posted by
                             <a href="#!">Admin</a>
-                            on {{ $post->created_at }}
+                            on {{ $post->created_at }} | Tags:
+                            @foreach ($post->tags as $singleTag)
+                            <span class="label label-info label-many badge bg-secondary">{{ $singleTag->name }}</span>
+                        @endforeach
                         </p>
                     </div>
                     <!-- Divider-->

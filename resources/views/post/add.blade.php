@@ -68,6 +68,15 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group mb-4">
+                                    <label for="tags">Select Tags</label>
+                                    <select multiple class="form-control" name="tags[]" id="tags">
+                                        @foreach($tags as $tag)
+                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary">Zapisz</button>
 
                               </form>

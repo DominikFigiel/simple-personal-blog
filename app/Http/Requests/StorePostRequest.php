@@ -13,7 +13,8 @@ class StorePostRequest extends FormRequest
             'description' => 'max:250',
             'slug' => 'required|max:250|unique:posts',
             'body' => 'max:250',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'nullable',
         ];
     }
 

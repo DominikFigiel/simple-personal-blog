@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\DestroyPostRequest;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -24,9 +25,11 @@ class PostController extends Controller
     public function create(): View
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         return view('post.add', [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ]);
     }
 
@@ -34,12 +37,12 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
-
         $postTitle = $data['title'];
         $postSlug = $this->convertTextToSlug($data['slug']);
         $postDescription = $data['description'];
         $postBody = $data['body'];
         $postCategoryId = $data['category_id'];
+        $postTags = $data['tags'];
 
         $post = new Post([
             'title' => $postTitle,
@@ -50,6 +53,7 @@ class PostController extends Controller
         ]);
 
         $post->save();
+        $post->tags()->attach($postTags);
 
         return redirect()
             ->route('posts.index')
@@ -126,7 +130,7 @@ class PostController extends Controller
 
     public function postIndex()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::with('tags')->paginate(5);
 
         return view('blog.index', compact('posts'));
     }
