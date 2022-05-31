@@ -8,16 +8,16 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\DestroyPostRequest;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Repository\Post\EloquentPostRepository;
+use App\Repository\Post\PostRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    private EloquentPostRepository $postRepository;
+    private PostRepository $postRepository;
 
-    public function __construct(EloquentPostRepository $postRepository)
+    public function __construct(PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
     }
