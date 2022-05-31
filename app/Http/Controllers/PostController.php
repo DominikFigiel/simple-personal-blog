@@ -84,12 +84,9 @@ class PostController extends Controller
 
     public function destroy(int $postId)
     {
-        $post = $this->postRepository->getPostById($postId);
+        $post = $this->postRepository->deletePost($postId);
 
         if (!empty($post)){
-
-            $post->delete();
-
             return redirect()
             ->route('posts.index')
             ->with('success', 'Post został usunięty.');
@@ -97,7 +94,7 @@ class PostController extends Controller
 
         return redirect()
             ->route('posts.index')
-            ->with('error', 'Post nie został zaktualizowany.');
+            ->with('error', 'Usuwanie posta nie powiodło się.');
     }
 
     public function show(string $slug)

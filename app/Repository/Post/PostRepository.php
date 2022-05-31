@@ -14,6 +14,7 @@ interface PostRepository
     public function getPostBySlug(string $slug);
     public function createPost(Request $request);
     public function updatePost(Request $request, $id);
+    public function deletePost(int $id);
     public function convertTextToSlug(string $text);
 }
 

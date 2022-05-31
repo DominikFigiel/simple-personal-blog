@@ -65,6 +65,21 @@ class EloquentPostRepository implements PostRepository
         return null;
     }
 
+    public function deletePost(int $id)
+    {
+        $post = $this->getPostById($id);
+
+        if (!empty($post)){
+
+            $post->tags()->detach();
+
+            $post->delete();
+
+            return $post;
+        }
+        return null;
+    }
+
     public function convertTextToSlug(string $text)
     {
         return Str::slug($text, '-');
