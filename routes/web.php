@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'App\Http\Controllers\PostController@welcomePage')->name('post.welcome');
+Route::get('blog', 'App\Http\Controllers\PostController@postIndex')->name('post.list');
+Route::get('blog/{slug}', 'App\Http\Controllers\PostController@show')->name('post.show');
 
 Route::middleware(['auth'])->group(function() {
-
     // list all categories, add new category, delete category
     Route::get('categories', 'App\Http\Controllers\CategoryController@index')->name('categories.index');
     Route::get('categories/form', 'App\Http\Controllers\CategoryController@create')->name('categories.form');
@@ -43,9 +46,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('posts/remove/{postId}', 'App\Http\Controllers\PostController@destroy')->name('posts.remove');
     Route::get('posts/edit/{postId}', 'App\Http\Controllers\PostController@edit')->name('posts.edit');
     Route::post('posts/update', 'App\Http\Controllers\PostController@update')->name('posts.update');
-
-    Route::get('blog', 'App\Http\Controllers\PostController@postIndex')->name('post.list');
-    Route::get('blog/{slug}', 'App\Http\Controllers\PostController@show')->name('post.show');
 });
 
 Auth::routes();

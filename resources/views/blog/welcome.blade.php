@@ -2,6 +2,9 @@
 
 @section('content')
 
+        <!-- Page Header-->
+        @include('blog.shared.header')
+
         <!-- Main Content-->
         @include('blog.shared.posts')
 

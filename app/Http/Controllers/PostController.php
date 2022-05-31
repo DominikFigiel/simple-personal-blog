@@ -120,6 +120,13 @@ class PostController extends Controller
         return view('blog.index', compact('posts'));
     }
 
+    public function welcomePage()
+    {
+        $posts = $this->postRepository->getPostsPaginated(5);
+
+        return view('blog.welcome', compact('posts'));
+    }
+
     public function convertTextToSlug(string $text): string
     {
         return Str::slug($text, '-');
