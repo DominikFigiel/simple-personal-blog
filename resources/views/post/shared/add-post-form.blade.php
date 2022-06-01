@@ -11,7 +11,7 @@
                         Add new post:
                     </div>
                     <div class="card-body">
-                      <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{ route('posts.add') }}">
+                      <form name="add-blog-post-form" enctype="multipart/form-data" id="add-blog-post-form" method="post" action="{{ route('posts.add') }}">
                        @csrf
 
                         <div class="form-group mb-4">
@@ -38,6 +38,19 @@
                             @enderror
                             <label for="body">Body</label>
                             <input type="text" id="body" name="body" class="form-control" required="" value="{{ old('body') }}">
+
+                            <div class="form-group mt-4">
+                                <label for="image">Post thumbnail </label>
+                                <input
+                                    type="file"
+                                    class="form-control-file"
+                                    id="image"
+                                    name="image"
+                                >
+                                @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                         </div>
 

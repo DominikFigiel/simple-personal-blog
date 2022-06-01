@@ -15,6 +15,7 @@ class StorePostRequest extends FormRequest
             'body' => 'max:250',
             'category_id' => 'required',
             'tags' => 'nullable',
+            'image' => 'nullable|file|image'
         ];
     }
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('slug', 255)->unique()->nullable();
             $table->text('body')->nullable();
             $table->integer('category_id');
+            $table->string('image')->nullable();
         });
     }
 

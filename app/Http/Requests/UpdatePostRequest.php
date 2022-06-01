@@ -11,7 +11,8 @@ class UpdatePostRequest extends FormRequest
         return [
             'title' => "required|max:100",
             'slug' => "required|max:100|unique:posts,slug,{$this->id}",
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'image' => 'nullable|file|image'
         ];
     }
 

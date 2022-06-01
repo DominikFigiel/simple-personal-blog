@@ -11,9 +11,20 @@
                         Edit post:
                     </div>
                     <div class="card-body">
-                      <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{ route('posts.update') }}">
+                      <form name="add-blog-post-form" enctype="multipart/form-data" id="add-blog-post-form" method="post" action="{{ route('posts.update') }}">
                        @csrf
                         <div class="form-group mb-4">
+                            <div class="row justify-content-center m-2">
+                                <div class="col-8">
+                                    @if($post->image)
+                                    <img src="{{ Storage::url($post->image) }}" class="rounded mx-auto d-block img-thumbnail">
+                                    @else
+                                        <img src="/images/post-image-placeholder.png" class="rounded mx-auto d-block img-thumbnail">
+                                    @endif
+                                </div>
+                            </div>
+
+
                             @error('title')
                                 <div class="error alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -38,6 +49,20 @@
                             @enderror
                             <label for="body">Body</label>
                             <input type="text" id="body" name="body" class="form-control" required="" value="{{ $post->body }}">
+
+                        </div>
+
+                        <div class="form-group mt-4 mb-3">
+                            <label for="image">Post thumbnail </label>
+                            <input
+                                type="file"
+                                class="form-control-file"
+                                id="image"
+                                name="image"
+                            >
+                            @error('image')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group mb-3">

@@ -3,6 +3,7 @@
 namespace App\Repository\Post;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class EloquentPostRepository implements PostRepository
@@ -37,11 +38,28 @@ class EloquentPostRepository implements PostRepository
     public function createPost(Request $request)
     {
         $post = new $this->postModel;
+
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->description = $request->description;
         $post->body = $request->body;
         $post->category_id = $request->category_id;
+
+        $newImage = $request->image;
+
+        $path = null;
+
+        if (!empty($newImage)) {
+            $path = $newImage->store('post-thumbnails', 'public');
+
+
+            if ($path) {
+                $newImage = $path;
+            }
+        }
+
+        $post->image = $newImage;
+
         $post->save();
 
         $post->tags()->attach($request->tags);
@@ -55,11 +73,32 @@ class EloquentPostRepository implements PostRepository
         if ($post != null) {
             $post->update([
                 'title' => $request->title,
-                'slug' => $request->description,
+                'slug' => $request->slug,
                 'description' => $request->description,
-                'body' => $request->description,
-                'category_id' => $request->description
+                'body' => $request->body,
+                'category_id' => $request->category_id
             ]);
+
+            $newImage = $request->image;
+
+            $path = null;
+            if (!empty($newImage)) {
+                $path = $newImage->store('post-thumbnails', 'public');
+                // $path = $newImage->storeAs('post-thumbnails', $post->id() . '.png', 'public');
+
+                if ($path) {
+                    if(!empty($post->image))
+                    {
+                        Storage::disk('public')->delete($post->image);
+                    }
+                    $newImage = $path;
+                }
+            }
+
+            $post->update([
+                'image' => $newImage
+            ]);
+
             return $post;
         }
         return null;
@@ -70,6 +109,12 @@ class EloquentPostRepository implements PostRepository
         $post = $this->getPostById($id);
 
         if (!empty($post)){
+
+            $path = null;
+            if (!empty($post->image)) {
+                Storage::disk('public')->delete($post->image);
+                $post->image = $path;
+            }
 
             $post->tags()->detach();
 
