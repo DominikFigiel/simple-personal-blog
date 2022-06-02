@@ -5,6 +5,17 @@
             <div class="post-preview">
                 <a href="#">
                     <h2 class="post-title">{{ $post->title }}</h2>
+
+                    <div class="row justify-content-center mt-4 mb-4">
+                        <div class="col-12">
+                            @if($post->image)
+                            <img src="{{ Storage::url($post->image) }}" class="rounded mx-auto d-block img-thumbnail">
+                            @else
+                                <img src="/images/post-image-placeholder.png" class="rounded mx-auto d-block img-thumbnail">
+                            @endif
+                        </div>
+                    </div>
+
                     <h3 class="post-subtitle">{{ $post->body }}</h3>
                 </a>
                 <p class="post-meta">

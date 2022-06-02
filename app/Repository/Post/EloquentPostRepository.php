@@ -93,11 +93,13 @@ class EloquentPostRepository implements PostRepository
                     }
                     $newImage = $path;
                 }
+
+                $post->update([
+                    'image' => $newImage
+                ]);
             }
 
-            $post->update([
-                'image' => $newImage
-            ]);
+
 
             return $post;
         }
