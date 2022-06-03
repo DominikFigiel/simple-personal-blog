@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('post_tag', function (Blueprint $table) {
-            $table->integer('post_id')->unsigned()->nullable();
-            $table->integer('tag_id')->unsigned()->nullable();
+            $table->bigInteger('post_id')->unsigned()->nullable();
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->bigInteger('tag_id')->unsigned()->nullable();
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
@@ -31,3 +33,4 @@ return new class extends Migration
         });
     }
 };
+

@@ -118,7 +118,7 @@ class EloquentPostRepository implements PostRepository
                 $post->image = $path;
             }
 
-            $post->tags()->detach();
+            // $post->tags()->detach();
 
             $post->delete();
 
